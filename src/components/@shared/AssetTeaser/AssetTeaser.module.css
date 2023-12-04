@@ -1,0 +1,236 @@
+.teaser:not(.trendingAsset) {
+  max-width: 140px;
+  height: 100%;
+  width: 140px;
+}
+
+.container {
+  display: block;
+
+  font-size: var(--font-size-small);
+  height: 100%;
+  color: var(--color-secondary);
+  position: relative;
+  /* for sticking footer to bottom */
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  font-size: var(--font-size-small);
+  height: 100%;
+  color: var(--color-secondary);
+  position: relative;
+  /* for sticking footer to bottom */
+  display: flex;
+  flex-direction: column;
+}
+
+.algorithm .link {
+  background-color: var(--background-body);
+}
+
+.content {
+  margin-top: calc(var(--spacer) / 2);
+  overflow-wrap: break-word;
+  hyphens: auto;
+  /* for sticking footer to bottom */
+  flex: 1;
+  text-align: center;
+}
+
+.content p {
+  margin-bottom: calc(var(--spacer) / 4);
+}
+
+.title {
+  font-size: var(--font-size-large);
+  margin: 0;
+  padding-bottom: calc(var(--spacer) / 6);
+  overflow-wrap: break-word;
+}
+
+.publisher {
+  display: block;
+}
+
+.foot {
+  margin-top: calc(var(--spacer) / 4);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.foot p {
+  margin: 0;
+}
+
+.symbol {
+  display: block;
+}
+
+.typeDetails {
+  position: absolute;
+  top: calc(var(--spacer) / 3);
+  right: calc(var(--spacer) / 3);
+  width: auto;
+  font-size: var(--font-size-mini);
+}
+
+.network {
+  font-size: var(--font-size-mini);
+  position: absolute;
+  right: calc(var(--spacer) / 3);
+  bottom: calc(var(--spacer) / 3);
+}
+
+.actionArea {
+  padding: calc(var(--spacer) / 2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.assetimage {
+  width: 100%;
+  padding-bottom: 100%;
+  position: relative;
+  background-size: cover;
+  background-position: center center;
+  border-radius: var(--assetimage-border-radius);
+  margin-bottom: 10px;
+}
+
+h2.assetName {
+  font-size: 1.1rem;
+  font-family: var(--font-family-base);
+  max-height: 40px;
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+  color:white;
+}
+
+h2.assetName:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.assetArtists {
+  margin: 5px 0 0;
+  line-height: 1.1;
+  color: gainsboro;
+}
+
+.priceDesktop {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: var(--background-body);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+.priceInfoMobile {
+  display: none;
+
+}
+
+.trendingAsset {
+  width: calc(100% / 4 - var(--assets-list-spacer));
+}
+
+.trendingAsset:last-child {
+  margin-right: 0;
+}
+
+.trendingAsset .assetimage {
+  padding-bottom: 230px;
+  margin: 0;
+}
+
+.trendingAsset .assetInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(2px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 0px 0px 20px 20px;
+  padding: 7px 12px;
+  width: 100%;
+}
+
+.trendingAsset .assetInfo .priceInfoMobile {
+  display: block;
+}
+
+.trendingAsset .assetInfo .assetArtists {
+  margin: 0;
+}
+
+@media screen and (max-width: 825px) {
+  .teaser:not(.trendingAsset) {
+    max-width: inherit;
+    width: calc(100% / 4 - var(--assets-list-spacer));
+  }
+}
+@media screen and (max-width: 650px) {
+  .teaser:not(.trendingAsset) {
+    width: calc(100% / 3 - var(--assets-list-spacer));
+  }
+}
+@media screen and (max-width: 550px) {
+  .teaser:not(.trendingAsset) {
+    width: calc(100% / 2 - var(--assets-list-spacer));
+  }
+}
+@media screen and (max-width: 400px) {
+  .teaser:not(.trendingAsset) {
+    max-width: inherit;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .link {
+    width: 100%;
+    display: block;
+  }
+  .assetimage:not(.trendingAsset .assetimage) {
+    width: 80px;
+    padding-bottom: 80px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+  .priceDesktop {
+    display: none;
+  }
+  .priceInfoMobile {
+    display: block;
+  }
+  .assetInfo {
+    display: inline-block;
+    vertical-align: middle;
+    width: calc(100% - 90px - 80px);
+  }
+  h2.assetName {
+    height: inherit;
+    overflow: inherit;
+    max-height: inherit;
+  }
+  .assetArtists {
+    margin: 0;
+  }
+  .assetAction {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: right;
+    width: 80px;
+  }
+}

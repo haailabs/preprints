@@ -1,0 +1,91 @@
+.account {
+  text-align: left;
+  display: inline-block;
+  vertical-align: middle;
+  width: 470px;
+}
+
+.account p {
+  margin: 0;
+}
+
+/* Sledgehammer !important cause Next.js reordering of styles is clashing with
+our Blockies implementation.
+See https://github.com/oceanprotocol/market/issues/1143 */
+.imageWrap,
+.image {
+  width: 100px !important;
+  height: 100px !important;
+}
+
+.imageWrap {
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: calc(var(--spacer) / 4);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 6px 17px 0 var(--box-shadow-color);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.image {
+  max-width: unset;
+}
+
+.name {
+  font-size: var(--font-size-h3);
+  margin-bottom: calc(var(--spacer) / 8);
+}
+
+.accountId {
+  display: block;
+  font-size: var(--font-size-small);
+  color: var(--color-secondary);
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  padding: 0;
+  margin: 0;
+}
+
+.explorer {
+  font-size: var(--font-size-mini);
+  margin-right: calc(var(--spacer) / 1.5);
+  display: inline-flex;
+  align-items: center;
+}
+
+.explorer svg:first-child {
+  width: var(--font-size-mini);
+  height: var(--font-size-mini);
+}
+
+.explorer svg:last-child {
+  margin-left: calc(var(--spacer) / 12);
+}
+
+.accountAdressInfo {
+  width: calc(100% - 100px);
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 20px;
+}
+
+@media (max-width: 850px) {
+  .account {
+    width: 100%;
+  }
+}
+
+@media (max-width: 450px) {
+  .imageWrap {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .accountAdressInfo {
+    width: 100%;
+    padding: 0;
+    margin-top: 20px;
+    text-align: center;
+  }
+}

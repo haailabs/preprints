@@ -1,0 +1,27 @@
+.assetList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--assets-list-spacer);
+}
+
+.empty {
+  color: var(--color-secondary);
+  font-size: var(--font-size-small);
+  font-style: italic;
+}
+
+.loaderWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.trendingList.assetList {
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 700px) {
+  .trendingList.assetList {
+    width: 750px;
+  }
+}

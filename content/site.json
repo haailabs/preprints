@@ -1,0 +1,21 @@
+{
+  "siteTitle": "Preprints.io",
+  "siteTagline": "Publish, Tokenize, and Monetize your Research through Non-Fungible Tokens (NFTs)",
+  "siteUrl": "https://market.oceanprotocol.com",
+  "siteImage": "/share.png",
+  "copyright": "Ocean Waves. All Rights Reserved.",
+  "menu": [
+    {
+      "name": "Publish",
+      "link": "/publish/1"
+    },
+    {
+      "name": "Profile",
+      "link": "/profile"
+    }
+  ],
+  "announcement": "",
+  "warning": {
+    "ctd": "Compute-to-Data is still in a testing phase, please use it only on test networks."
+  }
+}

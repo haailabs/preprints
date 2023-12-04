@@ -1,0 +1,103 @@
+.button {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-small);
+  text-transform: uppercase;
+  border: none;
+  padding: 0;
+  white-space: nowrap;
+  background: none;
+  margin: 0;
+  transition: border 0.2s ease-out;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  display: inline-block;
+}
+
+.button,
+.address {
+  color: var(--font-color-text);
+}
+
+.button:hover,
+.button:focus {
+  transform: none;
+  outline: 0;
+}
+
+.button.initial {
+  color: var(--color-primary);
+}
+
+.button.initial span {
+  display: none;
+}
+
+@media screen and (min-width: 42rem) {
+  .button.initial span {
+    display: inline;
+    margin-left: 0.2rem;
+  }
+}
+
+.address {
+  text-transform: none;
+  margin: 0 5px;
+  font-weight: 500;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@media screen and (min-width: 60rem) {
+  .blockies {
+    margin-right: calc(var(--spacer) / 6);
+  }
+}
+
+.status {
+  margin-left: calc(var(--spacer) / 4);
+  position: relative;
+  top: 1px;
+}
+
+.caret {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.button.initial span {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .button {
+    width: 100%;
+    text-align: left;
+  }
+  .button:not(.initial) svg {
+    float: right;
+  }
+  .button.initial svg {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .button.initial > span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    font-weight: initial;
+    text-transform: initial;
+    font-size: initial;
+    color: white;
+  }
+  .walletIcon {
+    width: 25px;
+    height: 25px;
+  }
+  .address {
+    margin: 0 0 0 10px;
+    font-size: initial;
+  }
+}

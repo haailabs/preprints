@@ -1,0 +1,79 @@
+.root {
+  position: sticky;
+  bottom: 10px;
+  width: calc(100% - var(--spacer) / 2);
+  max-width: calc(var(--break-point--medium) - (var(--spacer) / 1.2 * 2));
+  margin: 0 auto;
+}
+
+.loadingRoot {
+  position: sticky;
+  bottom: 0;
+  /* transform: translate(-100%); */
+}
+
+.loadingPlayer {
+  opacity: 0.2;
+}
+
+.loadingRoot::after {
+  content: 'Loading ...';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.closeContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin: 0;
+  outline: none;
+  color: var(--font-color-text);
+  font-size: 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .songDetails {
+    margin-bottom: -10px;
+  }
+}
+
+.audioPlayer {
+  background-color: none;
+  background: none !important;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(100% - 70px);
+  padding-left: 20px;
+  margin-bottom: -10px;
+}
+
+.playerCover {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 15px;
+}
+
+.playerWrapper {
+  background: rgba(88, 88, 88, 0.6);
+  backdrop-filter: blur(3.5px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.songTitle {
+  margin: 0 0 5px;
+}

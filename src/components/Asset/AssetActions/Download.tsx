@@ -1,0 +1,256 @@
+import React, { ReactElement, useEffect, useState } from 'react'
+// import FileIcon from '@shared/FileIcon'
+import Price from '@shared/Price'
+import { useAsset } from '@context/Asset'
+import { useWeb3 } from '@context/Web3'
+import ButtonBuy from '@shared/ButtonBuy'
+import { secondsToString } from '@utils/ddo'
+import AlgorithmDatasetsListForCompute from './Compute/AlgorithmDatasetsListForCompute'
+import styles from './Download.module.css'
+import { FileInfo, LoggerInstance, ZERO_ADDRESS } from '@oceanprotocol/lib'
+import { order } from '@utils/order'
+import { downloadFile, getFileBlobUrlWithAuth } from '@utils/provider'
+import { getOrderFeedback } from '@utils/feedback'
+import { getOrderPriceAndFees } from '@utils/accessDetailsAndPricing'
+import { toast } from 'react-toastify'
+import { useIsMounted } from '@hooks/useIsMounted'
+import { useMarketMetadata } from '@context/MarketMetadata'
+import Alert from '@shared/atoms/Alert'
+import Loader from '@shared/atoms/Loader'
+import { usePlayerContext } from '@context/Player.context'
+
+export default function Download({
+  asset,
+  // file,
+  isBalanceSufficient,
+  dtBalance,
+  // fileIsLoading,
+  consumableFeedback,
+  onAssetPage
+}: {
+  asset: AssetExtended
+  file: FileInfo
+  isBalanceSufficient: boolean
+  dtBalance: string
+  fileIsLoading?: boolean
+  consumableFeedback?: string
+  onAssetPage?: boolean
+}): ReactElement {
+  const { accountId, web3 } = useWeb3()
+  const { getOpcFeeForToken } = useMarketMetadata()
+  const { isInPurgatory, isAssetNetwork, isOwner } = useAsset()
+  const isMounted = useIsMounted()
+  const { play, loading: loadingSong } = usePlayerContext()
+
+  const [isDisabled, setIsDisabled] = useState(true)
+  const [hasDatatoken, setHasDatatoken] = useState(false)
+  const [statusText, setStatusText] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [isPriceLoading, setIsPriceLoading] = useState(false)
+  const [isOwned, setIsOwned] = useState(false)
+  const [validOrderTx, setValidOrderTx] = useState('')
+  const [orderPriceAndFees, setOrderPriceAndFees] =
+    useState<OrderPriceAndFees>()
+
+  const isUnsupportedPricing = asset?.accessDetails?.type === 'NOT_SUPPORTED'
+
+  useEffect(() => {
+    setIsLoading(loadingSong)
+  }, [loadingSong])
+
+  useEffect(() => {
+    if (!asset?.accessDetails || isUnsupportedPricing) return
+
+    asset.accessDetails.isOwned && setIsOwned(asset?.accessDetails?.isOwned)
+    asset.accessDetails.validOrderTx &&
+      setValidOrderTx(asset?.accessDetails?.validOrderTx)
+
+    // get full price and fees
+    async function init() {
+      if (
+        asset.accessDetails.addressOrId === ZERO_ADDRESS ||
+        asset.accessDetails.type === 'free' ||
+        isLoading
+      )
+        return
+
+      !orderPriceAndFees && setIsPriceLoading(true)
+
+      const _orderPriceAndFees = await getOrderPriceAndFees(asset, ZERO_ADDRESS)
+      setOrderPriceAndFees(_orderPriceAndFees)
+      !orderPriceAndFees && setIsPriceLoading(false)
+    }
+
+    init()
+
+    /**
+     * we listen to the assets' changes to get the most updated price
+     * based on the asset and the poolData's information.
+     * Not adding isLoading and getOpcFeeForToken because we set these here. It is a compromise
+     */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [asset, accountId, getOpcFeeForToken, isUnsupportedPricing])
+
+  useEffect(() => {
+    setHasDatatoken(Number(dtBalance) >= 1)
+  }, [dtBalance])
+
+  useEffect(() => {
+    if (
+      (asset?.accessDetails?.type === 'fixed' && !orderPriceAndFees) ||
+      !isMounted ||
+      !accountId ||
+      !asset?.accessDetails ||
+      isUnsupportedPricing
+    )
+      return
+
+    /**
+     * disabled in these cases:
+     * - if the asset is not purchasable
+     * - if the user is on the wrong network
+     * - if user balance is not sufficient
+     * - if user has no datatokens
+     */
+    const isDisabled =
+      !asset?.accessDetails.isPurchasable ||
+      !isAssetNetwork ||
+      ((!isBalanceSufficient || !isAssetNetwork) && !isOwned && !hasDatatoken)
+
+    setIsDisabled(isDisabled)
+  }, [
+    isMounted,
+    asset?.accessDetails,
+    isBalanceSufficient,
+    isAssetNetwork,
+    hasDatatoken,
+    accountId,
+    isOwned,
+    isUnsupportedPricing,
+    orderPriceAndFees
+  ])
+
+  async function handleOrderOrDownload() {
+    setIsLoading(true)
+
+    try {
+      if (isOwned) {
+        setStatusText(
+          getOrderFeedback(
+            asset.accessDetails.baseToken?.symbol,
+            asset.accessDetails.datatoken?.symbol
+          )[3]
+        )
+
+        await downloadFile(web3, asset, accountId, validOrderTx)
+      } else {
+        setStatusText(
+          getOrderFeedback(
+            asset.accessDetails.baseToken?.symbol,
+            asset.accessDetails.datatoken?.symbol
+          )[asset.accessDetails.type === 'fixed' ? 2 : 1]
+        )
+        const orderTx = await order(web3, asset, orderPriceAndFees, accountId)
+        if (!orderTx) {
+          throw new Error()
+        }
+        setIsOwned(true)
+        setValidOrderTx(orderTx.transactionHash)
+      }
+    } catch (error) {
+      LoggerInstance.error(error)
+      const message = isOwned
+        ? 'Failed to download file!'
+        : 'An error occurred. Check console for more information.'
+      toast.error(message)
+    }
+    setIsLoading(false)
+  }
+
+  function handlePlay() {
+    setIsLoading(true)
+    getFileBlobUrlWithAuth(web3, asset, accountId, validOrderTx)
+      .then((url) => {
+        play(url, asset.metadata.additionalInformation, true)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }
+
+  const PurchaseButton = () => (
+    <ButtonBuy
+      action="download"
+      disabled={isDisabled}
+      hasPreviousOrder={isOwned}
+      hasDatatoken={hasDatatoken}
+      btSymbol={asset?.accessDetails?.baseToken?.symbol}
+      dtSymbol={asset?.datatokens[0]?.symbol}
+      dtBalance={dtBalance}
+      onClick={handleOrderOrDownload}
+      onPlay={handlePlay}
+      assetTimeout={secondsToString(asset.services[0].timeout)}
+      assetType={asset?.metadata?.type}
+      stepText={statusText}
+      isLoading={isLoading}
+      priceType={asset.accessDetails?.type}
+      isConsumable={asset.accessDetails?.isPurchasable}
+      isBalanceSufficient={isBalanceSufficient}
+      consumableFeedback={consumableFeedback}
+      fullWidth
+    />
+  )
+
+  const AssetAction = ({ asset }: { asset: AssetExtended }) => {
+    return (
+      <div>
+        {isUnsupportedPricing ? (
+          <Alert
+            className={styles.fieldWarning}
+            state="info"
+            text={`No pricing schema available for this asset.`}
+          />
+        ) : (
+          <>
+            <div className={styles.priceWrap}>
+              {isPriceLoading ? (
+                <Loader message="Calculating full price (including fees)" />
+              ) : (
+                <Price
+                  accessDetails={asset.accessDetails}
+                  orderPriceAndFees={orderPriceAndFees}
+                  conversion
+                  size="large"
+                  onAssetPage={onAssetPage}
+                />
+              )}
+            </div>
+
+            {!isInPurgatory && <PurchaseButton />}
+          </>
+        )}
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <aside className={styles.consume}>
+        <div className={styles.info}>
+          {/* <div className={styles.filewrapper}>
+            <FileIcon file={file} isLoading={fileIsLoading} small />
+          </div> */}
+
+          <AssetAction asset={asset} />
+        </div>
+
+        {asset?.metadata?.type === 'algorithm' && (
+          <AlgorithmDatasetsListForCompute
+            algorithmDid={asset.id}
+            asset={asset}
+          />
+        )}
+      </aside>
+    </>
+  )
+}
