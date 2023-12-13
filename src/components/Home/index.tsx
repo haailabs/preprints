@@ -52,13 +52,15 @@ export default function HomePage(): ReactElement {
         <Bookmarks />
       </section> */}
       <div className={styles.trendingtitleBar}>
-        <div className={styles.trendingTitle}>Trending</div>
+        <div className={styles.tabsButtons}>
+          <button>Top publications</button>
+        </div>
         <Link href="/search?sort=stats.orders&sortOrder=desc">
           <a
             href="/search?sort=stats.orders&sortOrder=desc"
             className={styles.trendingShowMore}
           >
-            Show more
+            Show More →
           </a>
         </Link>
       </div>
@@ -66,17 +68,20 @@ export default function HomePage(): ReactElement {
         <SectionQueryResult query={queryMostSales} trendingList />
       </div>
       <div className={styles.tabsButtons}>
-        <button>Recently</button>
+        <button>Recent publications</button>
       </div>
-      <SectionQueryResult
-        query={queryLatest}
-        action={
-          <Button style="text" to="/search?sort=nft.created&sortOrder=desc">
-            All audio files →
-          </Button>
-        }
-      />
-      {/* <PublishersWithMostSales title="Publishers With Most Sales" /> */}
+      <SectionQueryResult query={queryLatest} />
+      <br />
+      {
+        <Link href="/search?sort=nft.created&sortOrder=desc">
+          <a
+            href="/search?sort=nft.created&sortOrder=desc"
+            className={styles.trendingShowMore}
+          >
+            Show All →
+          </a>
+        </Link>
+      }
     </>
   )
 }

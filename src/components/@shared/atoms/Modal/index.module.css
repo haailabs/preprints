@@ -34,18 +34,16 @@
 
 .header {
   padding-bottom: var(--spacer);
-  
 }
 
 .title {
   font-size: var(--font-size-h3);
   margin: 0;
-  
 }
 
 @media (min-width: 40rem) {
   .title {
-    font-size: var(--font-size-h2);
+    font-size: var(--font-size-small);
   }
 }
 

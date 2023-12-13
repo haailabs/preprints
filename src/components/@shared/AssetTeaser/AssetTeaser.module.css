@@ -1,29 +1,61 @@
 .teaser:not(.trendingAsset) {
-  max-width: 140px;
+  max-width: 400px;
   height: 100%;
-  width: 140px;
+  width: calc(100% / 4 - var(--assets-list-spacer));
+}
+
+.trendingAsset {
+  margin-top: 15px;
 }
 
 .container {
   display: block;
-
   font-size: var(--font-size-small);
-  height: 100%;
   color: var(--color-secondary);
+  box-shadow: 0 4px 8px 0 var(--box-shadow-color);
   position: relative;
-  /* for sticking footer to bottom */
-  display: flex;
-  flex-direction: column;
+  transition: transform 0.5s ease;
+
+  /* Rounded corners for a modern look */
+  border-radius: 20px;
+  /* Border color similar to navigation item list */
+
+  /* Add padding for spacing between content and border */
+  padding: 16px;
+  padding-bottom: 20px;
+  /* Similar background to navigation items */
+  background: var(--background-body-lighter);
+
+  /* Inject the numbers with similar styling */
+}
+
+.tag {
+  color: var(--border-color);
+  border: 1px solid var(--border-color); /* Border color same as text color */
+  padding: 4px 8px; /* Adjust padding as needed */
+  background: var(--background-body-lighter);
+  border-radius: 15px; /* Optional: Add border-radius for rounded corners */
+}
+
+.container:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Add a smooth transition for hover effect */
+.container {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .link {
   font-size: var(--font-size-small);
-  height: 100%;
   color: var(--color-secondary);
   position: relative;
-  /* for sticking footer to bottom */
   display: flex;
   flex-direction: column;
+  background: var(--background-body-lighter);
+
+  overflow-wrap: break-word;
 }
 
 .algorithm .link {
@@ -31,10 +63,9 @@
 }
 
 .content {
-  margin-top: calc(var(--spacer) / 2);
+  margin-top: 15px;
   overflow-wrap: break-word;
   hyphens: auto;
-  /* for sticking footer to bottom */
   flex: 1;
   text-align: center;
 }
@@ -44,11 +75,18 @@
 }
 
 .title {
-  font-size: var(--font-size-large);
+  font-size: var(--font-size-small);
+  font-weight: bold;
   margin: 0;
+  padding-top: calc(var(--spacer) / 6);
   padding-bottom: calc(var(--spacer) / 6);
   overflow-wrap: break-word;
 }
+
+.name {
+  font-size: var(--font-size-small);
+}
+/* Add a subtle box shadow for a lift effect */
 
 .publisher {
   display: block;
@@ -102,13 +140,13 @@
 }
 
 h2.assetName {
-  font-size: 1.1rem;
+  font-size: var(--font-size-small);
   font-family: var(--font-family-base);
   max-height: 40px;
   overflow: hidden;
   position: relative;
   margin: 0;
-  color:white;
+  color: white;
 }
 
 h2.assetName:after {
@@ -135,11 +173,10 @@ h2.assetName:after {
 
 .priceInfoMobile {
   display: none;
-
 }
 
 .trendingAsset {
-  width: calc(100% / 4 - var(--assets-list-spacer));
+  width: calc(100% / 3 - var(--assets-list-spacer));
 }
 
 .trendingAsset:last-child {

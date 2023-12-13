@@ -8,13 +8,11 @@
   margin-top: 0;
   margin-bottom: 0;
   display: inline-flex;
-
-
 }
 
 @media (min-width: 40rem) {
   .title {
-    font-size: var(--font-size-h2);
+    font-size: var(--font-size-small);
   }
 }
 

@@ -88,10 +88,11 @@ export default function MetadataFields(): ReactElement {
         name="metadata.name"
       />
       <Field
-        {...getFieldContent('artist', content.metadata.fields)}
+        {...getFieldContent('author', content.metadata.fields)}
         component={Input}
-        name="metadata.artist"
+        name="metadata.author"
       />
+
       <Field
         {...getFieldContent('album', content.metadata.fields)}
         component={Input}
@@ -105,14 +106,15 @@ export default function MetadataFields(): ReactElement {
         rows={7}
       />
       <Field
-        {...getFieldContent('author', content.metadata.fields)}
-        component={Input}
-        name="metadata.author"
-      />
-      {/* <Field
         {...getFieldContent('tags', content.metadata.fields)}
         component={Input}
         name="metadata.tags"
+      />
+
+      {/* <Field
+        {...getFieldContent('artist', content.metadata.fields)}
+        component={Input}
+        name="metadata.artist"
       /> */}
       <Field
         {...getFieldContent('genre', content.metadata.fields)}

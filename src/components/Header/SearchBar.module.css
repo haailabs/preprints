@@ -11,14 +11,15 @@
 
 .input {
   font-size: 16px; /* prevent zoom in on input focus on mobile devices  */
-  background-color: transparent;
+
   margin: 0;
   outline: 0;
   width: 45px;
   transition: none;
   border: none;
   overflow: hidden;
-  background: #1a1a1a;
+  background: var(--background-body-lighter) !important;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   display: inline-block;
   padding: 0;
@@ -35,7 +36,7 @@
 .button {
   background: none;
   border: none;
-  color: rgb(0, 0, 0);
+  color: var(--border-color) !important;
   display: inline-block;
   position: absolute;
   top: 50%;
@@ -49,16 +50,15 @@
 
 .button svg {
   width: 15px;
-  fill: currentColor;
+  fill: var(--border-color);
   transition: 0.2s ease-out;
 }
 
 .openedSearch input {
   width: 300px;
   padding: 10px;
-  opacity: 1;
+  opacity: 10;
   pointer-events: initial;
-  background:white;
 }
 
 /* clears the ‘X’ from Internet Explorer */

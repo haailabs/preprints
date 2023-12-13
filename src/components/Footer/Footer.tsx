@@ -20,7 +20,7 @@ export default function Footer(): ReactElement {
       <div className={styles.grid}>
         {/* <Links /> */}
         <div className={styles.copyright}>
-          © {year}, <Markdown text={siteContent?.copyright} />
+          © {year}, {siteContent?.copyright}
           {/* <Button
             style="text"
             size="small"

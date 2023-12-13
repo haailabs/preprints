@@ -18,10 +18,11 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-
+.tag:focus:not(span) {
+}
 .tag:hover:not(span),
 .tag:focus:not(span) {
-  color: var(--color-primary);
+  color: var(--brand-grey-lighter);
 }
 
 .more {

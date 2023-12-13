@@ -19,13 +19,13 @@ export default function MetaFull({ ddo }: { ddo: Asset }): ReactElement {
     <>
       {!isInPurgatory && (
         <div className={styles.metaFull}>
-          <MetaItem title="Publisher" content={ddo?.metadata?.author} />
+          <MetaItem title="Authors" content={ddo?.metadata?.author} />
           <MetaItem
-            title="Album"
+            title="Email"
             content={ddo?.metadata?.additionalInformation.album}
           />
           <MetaItem
-            title="Genre"
+            title="Discipline"
             content={
               ddo?.metadata?.additionalInformation.genre
                 ? ddo?.metadata?.additionalInformation.genre

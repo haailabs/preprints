@@ -293,7 +293,7 @@ export default function PublishPage({
             description={
               accountId
                 ? content.description
-                : 'You must have a connected wallet in order to publish a song.'
+                : 'You must have a connected wallet in order to publish a manuscript.'
             }
           />
           {accountId && (

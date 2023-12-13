@@ -21,29 +21,34 @@
   --brand-alert-orange: #b35f36;
   --brand-alert-yellow: #eac146;
 
-  --color-primary: #222123;
-  --color-primary-hover: #222123;
-  --color-secondary: #222123;
+  --color-primary: #472ed7;
+  --color-primary-hover: rgb(0, 4, 18);
+  --color-secondary: #b9b4c7;
   --color-secondary-gradient: linear-gradient(
     80.6deg,
     #008ee8 11.62%,
     #4bd7fe 93.92%
   );
 
-  /* Only use these vars for most color referencing for easy light/dark mode */
-  --font-color-text: #333333; 
---font-color-heading: #1a1a1a; 
---background-body: #f5f5f5; 
---background-body-transparent: rgba(255, 255, 255, 0.8); 
---background-content: #ffffff; 
---background-highlight: #f0f0f0;
---border-color: #dcdcdc; 
---fields-background: #f9f9f9;
---box-shadow-color: rgba(0, 0, 0, 0.05); 
+  --font-color-text: rgb(245, 245, 245); /* Lightened white text */
+  --font-color-heading: rgb(248, 240, 215); /* Lightened white heading text */
+  --background-body: #181c39; /* Lightened dark background for body */
+  --background-body-lighter: #202448; /* Lightened even further for a more vibrant look */
+  --background-body-transparent: rgba(
+    65,
+    65,
+    65,
+    0.3
+  ); /* Lightened dark transparent background for body */
+  --background-content: #1f2345; /* Lightened dark background for content */
+  --background-highlight: #4d6279; /* Lightened black background for highlighted areas */
+  --border-color: #b3a9ad; /* Lightened white border color */
+  --fields-background: #596873; /* Lightened black background for fields */
+  --box-shadow-color: rgb(16, 27, 51); /* Lightened shadow color */
 
-  --font-family-base:  "Catamaran", sans-serif;
-  --font-family-heading:  "Catamaran", sans-serif;
-  --font-family-monospace:  "Catamaran", sans-serif;
+  --font-family-base: 'Catamaran', sans-serif;
+  --font-family-heading: 'Catamaran', sans-serif;
+  --font-family-monospace: 'Catamaran', sans-serif;
 
   --font-size-root: 17px;
   --font-size-base: 1rem;

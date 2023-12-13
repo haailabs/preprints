@@ -19,20 +19,23 @@
       {
         "name": "name",
         "label": "Title",
-        "help": "Song name",
-        "placeholder": "e.g. Bohemian Rhapsody",
+        "help": "Compose a clear and concise title stating the main focus and novelty of your study.",
+        "placeholder": "e.g. Detecting algorithmic bias in medical AI-models",
         "required": true
       },
       {
-        "name": "artist",
-        "label": "Artist",
-        "placeholder": "e.g. Queen",
+        "name": "author",
+        "label": "Authors",
+        "help": "Comma-separated list of the authors of the manuscript.",
+        "placeholder": "e.g. Jeffrey Smith, Andre Holder, Rishikesan Kamaleswaran, Yao Xie",
         "required": true
       },
       {
         "name": "album",
-        "label": "Album",
-        "placeholder": "e.g. A night at the opera",
+        "label": "Correspondence Email",
+        "help": "Email address of the corresponding author of the manuscript.",
+
+        "placeholder": "e.g. Corresponding.author@email.com",
         "required": true
       },
       {
@@ -42,27 +45,31 @@
       },
       {
         "name": "description",
-        "label": "Description",
-        "help": "Add a thorough description with as much detail as possible. You can use [Markdown](https://daringfireball.net/projects/markdown/basics). You can change the description at any time. If you provide personal data, please note that it will remain in the transaction history. For more information on how personal data is handled within the metadata, please refer to our [privacy policy](/privacy/en).",
+        "label": "Abstract",
+        "help": "The abstract should succinctly encapsulate the essence of your research. Begin by introducing the background or problem addressed, followed by a clear statement of your study's objective or research question. Briefly outline the methods employed, emphasizing key methodologies and analytical approaches. Summarize the main results and findings, directly connecting them to the research objective. Conclude with the broader implications of your study.",
+        "placeholder": "A one paragraph clear abstracted of 150 to 250 words, capturing the essence of your research for a quick and informative overview.",
+
         "type": "textarea",
         "required": true
       },
       {
-        "name": "author",
-        "label": "Publisher",
-        "placeholder": "e.g. Jelly McJellyfish",
-        "help": "Give proper attribution for your dataset. You are welcome to use a pseudonym, and you can change your author name at any time. Please note that it will remain in the transaction history. For more information on how personal data is handled within the metadata, please refer to our [privacy policy](/privacy/en).",
+        "name": "artist",
+        "label": "Authors",
+        "help": "Comma-separated list of the authors of the manuscript.",
+        "placeholder": "e.g. Jeffrey Smith, Andre Holder, Rishikesan Kamaleswaran, Yao Xie",
+        "help": "",
         "required": true
       },
       {
         "name": "tags",
-        "label": "Tags",
-        "placeholder": "e.g. Rap, Pop, Rock, 80s",
-        "help": "Separate tags with comma."
+        "label": "Keywords",
+        "placeholder": "e.g. machine learning, artificial intelligence, medical decision support systems, algorithmic bias, fairness",
+        "help": "Comma-separated list of relevant keywords for the classification of the manuscript.",
+        "required": true
       },
       {
         "name": "genre",
-        "label": "Genre",
+        "label": "Main Field of Study",
         "type": "select",
         "multiple": true,
         "options": [
@@ -146,7 +153,7 @@
       },
       {
         "name": "files",
-        "label": "Audio File",
+        "label": "Manuscript",
         "placeholder": "e.g. https://file.com/file.pdf",
         "help": "This URL will be stored encrypted after publishing. **Please make sure that the endpoint is accessible over the internet and is not protected by a firewall or by credentials.** For a compute dataset, your file should match the file type required by the algorithm, and should not exceed 1 GB in file size. ",
         "prominentHelp": true,

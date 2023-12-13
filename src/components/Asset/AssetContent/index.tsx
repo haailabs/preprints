@@ -104,7 +104,7 @@ export default function AssetContent({
           <div className={styles.metaFirstSection}>
             <div className={styles.songDescription}>
               <MetaItem
-                title="Description"
+                title="Abstract"
                 content={
                   isInPurgatory === true ? (
                     <Alert

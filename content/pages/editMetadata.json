@@ -12,7 +12,7 @@
       },
       {
         "name": "description",
-        "label": "New Description",
+        "label": "New Abstract",
         "help": "Add a thorough description with as much detail as possible. You can use [Markdown](https://daringfireball.net/projects/markdown/basics).",
         "type": "textarea",
         "rows": 10,
@@ -37,7 +37,7 @@
       },
       {
         "name": "author",
-        "label": "New Author",
+        "label": "New Authors",
         "placeholder": "e.g. Mrs McJellyfish",
         "help": "Give proper attribution for your dataset.",
         "required": false
