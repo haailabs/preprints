@@ -51,12 +51,12 @@ function getConsumeHelpText(
     isConsumable === false
       ? consumableFeedback
       : hasPreviousOrder
-      ? `You bought this ${assetType} already allowing you to use it without paying again.`
+      ? `You purchased access to this manuscript already.`
       : hasDatatoken
-      ? `You own ${dtBalance} ${dtSymbol} allowing you to use this dataset by spending 1 ${dtSymbol}, but without paying ${btSymbol} again.`
+      ? `You own ${dtBalance} ${dtSymbol} allowing you to access this manuscript by spending 1 ${dtSymbol}, but without paying ${btSymbol} again.`
       : isBalanceSufficient === false
-      ? `You do not have enough ${btSymbol} in your wallet to purchase this asset.`
-      : `For using this ${assetType}, you will buy 1 ${dtSymbol} and immediately spend it back to the publisher.`
+      ? `You do not have enough ${btSymbol} in your wallet to access this manuscript.`
+      : `For accessing this manuscript, you will buy 1 ${dtSymbol} and immediately spend it back to the publisher.`
   return text
 }
 

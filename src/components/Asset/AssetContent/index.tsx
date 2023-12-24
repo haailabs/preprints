@@ -1,3 +1,56 @@
+function generatePlaceholderUrl(title: string): string {
+  function hashString(str: string): number {
+    let hash = 0
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i)
+      hash = (hash << 5) - hash + char
+      hash = hash & hash // Convert to 32bit integer
+    }
+    return hash
+  }
+
+  function generateColor(hash: number): string {
+    const color = `#${Math.abs(hash).toString(9).substr(0, 4)}`
+    return color
+  }
+
+  function generateVectorField(
+    hash: number,
+    width: number,
+    height: number
+  ): string {
+    let field = ''
+    const step = 5 // Distance between lines
+    for (let x = 0; x < width; x += step) {
+      for (let y = 0; y < height; y += step) {
+        const angle =
+          (Math.cos((x + hash) * 0.1) + Math.sin((y + hash) * 0.1)) * Math.PI
+        const lineLength = 5
+        field += `<line x1="${x}" y1="${y}" x2="${
+          x + lineLength * Math.cos(angle)
+        }" y2="${y + lineLength * Math.sin(angle)}" stroke="${generateColor(
+          hash + x * y
+        )}" stroke-width="1"/>`
+      }
+    }
+    return field
+  }
+
+  const hash = hashString(title)
+  const width = 150
+  const height = 100
+
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+      ${generateVectorField(hash, width, height)}
+      <text x="50%" y="90%" font-family="Arial" font-size="12" fill="#fff" dy=".3em" text-anchor="middle">${encodeURIComponent(
+        title
+      )}</text>
+    </svg>
+  `
+
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`
+}
 import React, {
   ReactElement,
   useState
@@ -48,8 +101,9 @@ export default function AssetContent({
             className={styles.assetimage}
             style={{
               backgroundImage: `url(${
-                asset.metadata.additionalInformation.coverPicture ??
-                '/placeholderImage.jpg'
+                asset.metadata.additionalInformation.coverPicture
+                  ? asset.metadata.additionalInformation.coverPicture
+                  : generatePlaceholderUrl(asset.metadata.name)
               })`
             }}
           />

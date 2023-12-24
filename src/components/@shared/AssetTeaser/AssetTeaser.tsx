@@ -1,3 +1,94 @@
+function generatePlaceholderUrl(title: string): string {
+  function hashString(str: string): number {
+    let hash = 0
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i)
+      hash = (hash << 5) - hash + char
+      hash = hash & hash // Convert to 32bit integer
+    }
+    return hash
+  }
+
+  function generateColor(hash: number): string {
+    const color = `#${Math.abs(hash).toString(12).substr(0, 6)}`
+    return color
+  }
+
+  function generateVectorField(
+    hash: number,
+    width: number,
+    height: number
+  ): string {
+    var size = Math.min(width, height) // Use the smaller of width and height
+    var step = 8
+    var lines = []
+
+    // Linear congruential generator (LCG) for pseudo-randomness
+    var a = 1664525
+    var c = 1013904223
+    var m = Math.pow(2, 32)
+
+    // Seed with the hash
+    var pseudoRandom = () => {
+      hash = (a * hash + c) % m
+      return hash / m
+    }
+
+    // Create the lines with variance
+    for (var i = step; i <= size - step; i += step) {
+      var line = []
+      for (var j = step; j <= size - step; j += step) {
+        var distanceToCenter = Math.abs(j - size / 2)
+        var variance = Math.max(size / 2 - 50 - distanceToCenter, 0)
+        var random = ((pseudoRandom() * variance) / 2) * -1 // Use pseudoRandom instead of Math.random
+        var point = { x: j, y: i + random }
+        line.push(point)
+      }
+      lines.push(line)
+    }
+
+    // Begin SVG string
+    var svg = `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">`
+
+    // Convert canvas drawing to SVG path
+    for (var i = 5; i < lines.length; i++) {
+      var pathData = `M ${lines[i][0].x} ${lines[i][0].y} `
+
+      for (var j = 0; j < lines[i].length - 1; j++) {
+        var xc = (lines[i][j].x + lines[i][j + 1].x) / 2
+        var yc = (lines[i][j].y + lines[i][j + 1].y) / 2
+        pathData += `Q ${lines[i][j].x} ${lines[i][j].y}, ${xc} ${yc} `
+      }
+
+      // Last curve to the last point
+      pathData += `T ${lines[i][lines[i].length - 1].x} ${
+        lines[i][lines[i].length - 1].y
+      }`
+
+      // Add path to SVG
+      svg += `<path d="${pathData}" fill="none" stroke="black" stroke-width="2"/>`
+    }
+
+    // Close SVG string
+    svg += '</svg>'
+
+    return svg
+  }
+
+  const hash = hashString(title)
+  const width = 250
+  const height = 200
+
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      ${generateVectorField(hash, width, height)}
+   
+    </svg>
+  `
+
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`
+}
+
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
 // import Dotdotdot from 'react-dotdotdot';
@@ -47,7 +138,7 @@ export default function AssetTeaser({
                 />
               ) : (
                 <img
-                  src="/placeholderImage.jpg"
+                  src={generatePlaceholderUrl(name)}
                   alt="Placeholder Image"
                   style={{ width: '100%', height: '100px', objectFit: 'cover' }}
                 />
